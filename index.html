@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Seoul Trip 2026</title>
   
-  <!-- 引入 Google Fonts (Outfit 用於數字/英文，Noto Sans TC 用於中文) -->
+  <!-- 引入 Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -14,7 +14,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    /* CSS Reset & 基本設定 */
     * {
       box-sizing: border-box;
       -webkit-tap-highlight-color: transparent;
@@ -24,17 +23,16 @@
       margin: 0;
       padding: 0;
       font-family: 'Outfit', 'Noto Sans TC', sans-serif;
-      background-color: #E5E7EB; /* 電腦版外圍背景 */
+      background-color: #E5E7EB;
       display: flex;
       justify-content: center;
       height: 100vh;
       overflow: hidden;
     }
 
-    /* 模擬手機 App 容器 */
     #app {
       width: 100%;
-      max-width: 414px; /* iPhone Max 寬度 */
+      max-width: 414px;
       height: 100vh;
       background-color: #F9FAFB;
       position: relative;
@@ -43,11 +41,10 @@
       box-shadow: 0 0 20px rgba(0,0,0,0.1);
     }
 
-    /* 1. 動態首頁 Hero Section */
     .hero {
       height: 240px;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%), 
-                  url('https://images.unsplash.com/photo-1538485399081-7191377e8241?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80') center/cover;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.5) 100%), 
+                  url('https://images.unsplash.com/photo-1538485399081-7191377e8241?auto=format&fit=crop&w=1000&q=80') center/cover;
       color: white;
       padding: 24px;
       display: flex;
@@ -86,22 +83,20 @@
       width: fit-content;
     }
 
-    /* 2. Smart Timeline 區塊 */
     .main-content {
       flex: 1;
       overflow-y: auto;
-      padding: 24px 20px 100px 20px; /* 底部預留 Nav 空間 */
+      padding: 24px 20px 100px 20px;
       background-color: #F9FAFB;
     }
 
-    /* 隱藏捲軸但保持可捲動 (乾淨俐落) */
     .main-content::-webkit-scrollbar {
       display: none;
     }
 
     .timeline {
       border-left: 2px solid #E5E7EB;
-      margin-left: 60px; /* 左側預留時間顯示空間 */
+      margin-left: 60px;
       padding-left: 24px;
     }
 
@@ -113,20 +108,13 @@
       transform: translateY(10px);
     }
 
-    /* 卡片進場動畫 */
     @keyframes fadeIn {
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* 延遲動畫，產生瀑布流效果 */
-    .timeline-item:nth-child(1) { animation-delay: 0.1s; }
-    .timeline-item:nth-child(2) { animation-delay: 0.2s; }
-    .timeline-item:nth-child(3) { animation-delay: 0.3s; }
-    .timeline-item:nth-child(4) { animation-delay: 0.4s; }
-
     .time-col {
       position: absolute;
-      left: -100px; /* 推至線左側 */
+      left: -100px;
       top: 14px;
       font-family: 'Outfit';
       font-size: 15px;
@@ -138,7 +126,7 @@
 
     .icon-circle {
       position: absolute;
-      left: -40px; /* 蓋在線上 */
+      left: -40px;
       top: 10px;
       width: 30px;
       height: 30px;
@@ -154,7 +142,6 @@
       z-index: 2;
     }
 
-    /* 卡片設計：極簡、圓潤、留白 */
     .card {
       background: #FFFFFF;
       border-radius: 20px;
@@ -204,23 +191,35 @@
       line-height: 1.5;
     }
 
-    /* 關鍵字按鈕 (開啟 Modal) */
-    .modal-btn {
+    .btn-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
       margin-top: 12px;
-      background: #F8FAFC;
-      border: 1px solid #E2E8F0;
-      color: #3B82F6;
-      padding: 6px 12px;
-      border-radius: 12px;
+    }
+
+    /* 還原截圖中的精美藍框按鈕樣式 */
+    .modal-btn {
+      background: #FFFFFF;
+      border: 1px solid #E5E7EB;
+      color: #2563EB;
+      padding: 8px 16px;
+      border-radius: 14px;
       font-size: 13px;
       font-weight: 500;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
     }
 
-    /* 3. 底部導航欄 */
+    .modal-btn:active {
+      background: #F8FAFC;
+      transform: scale(0.97);
+    }
+
     .bottom-nav {
       position: absolute;
       bottom: 0;
@@ -232,7 +231,7 @@
       display: flex;
       justify-content: space-around;
       align-items: center;
-      padding-bottom: 15px; /* 適應手機底部 SafeArea */
+      padding-bottom: 15px;
       z-index: 10;
     }
 
@@ -264,19 +263,19 @@
       transform: translateY(-2px);
     }
 
-    /* 4. Modal 彈窗設計 */
+    /* Premium 彈窗樣式修補：可獨立滑動，關閉按鈕永不遺失 */
     .modal-overlay {
       position: fixed;
       inset: 0;
       background: rgba(17, 24, 39, 0.4);
-      backdrop-filter: blur(4px);
+      backdrop-filter: blur(8px);
       z-index: 100;
       display: flex;
       align-items: center;
       justify-content: center;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .modal-overlay.active {
@@ -286,43 +285,106 @@
 
     .modal-content {
       background: #FFFFFF;
-      width: 85%;
+      width: 88%;
+      max-width: 380px;
+      max-height: 75vh; 
       border-radius: 24px;
       padding: 24px;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-      transform: scale(0.95);
-      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      transform: translateY(20px) scale(0.95);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: flex;
+      flex-direction: column;
     }
 
     .modal-overlay.active .modal-content {
-      transform: scale(1);
+      transform: translateY(0) scale(1);
     }
 
     .modal-title {
-      margin: 0 0 12px 0;
+      margin: 0 0 16px 0;
       font-size: 18px;
       font-weight: 700;
       color: #111827;
+      flex-shrink: 0;
+      border-bottom: 1px solid #F3F4F6;
+      padding-bottom: 12px;
     }
 
     .modal-body {
-      font-size: 15px;
+      font-size: 14px;
       color: #4B5563;
       line-height: 1.6;
-      white-space: pre-line; /* 保留換行符號 */
+      overflow-y: auto; 
+      padding-right: 4px; 
+      flex-grow: 1;
+    }
+
+    .modal-body::-webkit-scrollbar {
+      width: 4px;
+    }
+    .modal-body::-webkit-scrollbar-thumb {
+      background: #E5E7EB;
+      border-radius: 2px;
     }
 
     .modal-close {
-      margin-top: 20px;
+      margin-top: 16px;
       width: 100%;
       background: #111827;
       color: white;
       border: none;
-      padding: 14px;
+      padding: 12px;
       border-radius: 14px;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 600;
       cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+
+    .modal-close:active {
+      background: #374151;
+    }
+
+    /* 專屬購物清單設計：高質感縮圖與詳細內容對齊 */
+    .shopping-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .shopping-list li {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #F3F4F6;
+    }
+    .shopping-list li:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    .shopping-list img {
+      width: 60px; 
+      height: 60px;
+      object-fit: contain;
+      border-radius: 12px;
+      border: 1px solid #E5E7EB;
+      flex-shrink: 0;
+      background: #F9FAFB;
+    }
+    .shopping-list div {
+      font-size: 14px;
+      line-height: 1.4;
+      color: #374151;
+    }
+    .shopping-list small {
+      color: #9CA3AF;
+      font-size: 11px;
+      display: block;
+      margin-top: 2px;
     }
   </style>
 </head>
@@ -372,85 +434,164 @@
     <div class="modal-content">
       <h3 class="modal-title" id="modal-title">Title</h3>
       <div class="modal-body" id="modal-body">Content goes here...</div>
-      <button class="modal-close" onclick="closeModal()">確認 / Close</button>
+      <button class="modal-close" id="close-modal-btn">確認 / Close</button>
     </div>
   </div>
 
   <script>
-    /* =========================================
-       1. 行程資料庫 (Hardcoded JSON)
-       ========================================= */
     const itineraryData = {
       day1: [
-        { time: '05:00', icon: 'fa-plane-arrival', title: '抵達首爾仁川 (T2)', desc: '班機抵達，領完行李稍作休息，準備申辦自動通關。', map: 'Incheon Airport T2', btnText: '航班資訊', modalTitle: '去程航班 (LJ734)', modalContent: '✈️ 航班：LJ734\n🛫 起飛：06/04 01:25 (桃機 T1)\n🛬 抵達：06/04 05:00 (仁川 T2)\n📝 稍後辦理 SES，免填線上入境卡或紙本' },
-        { time: '07:00', icon: 'fa-passport', title: '辦理 SES 韓國快速通關', desc: '於 T2 的 2樓行政中心抽號碼牌辦理，辦完免填 K-ETA！', map: 'Incheon Airport Terminal 2', btnText: '辦理攻略', modalTitle: 'SES 辦理資訊', modalContent: '📍 位置：仁川機場 T2 2樓行政中心\n💡 流程：抽號碼牌等候，通常不到 10 分鐘就能辦完。\n備註：辦理完成後，下次入境韓國就可以直接走自動通關通道囉！' },
-        { time: '09:00', icon: 'fa-house', title: '抵達弘大 & 寄放行李', desc: '前往住宿處，將行李寄放於房源前面的藍色盒子裡。', map: '14 Wausan-ro 33-gil', btnText: '住宿資訊', modalTitle: '弘大住宿', modalContent: '📍 地址：14 Wausan-ro 33-gil\n🧳 寄放指示：放在房源前面的「藍色盒子」裡\n⚠️ 離開前請確認盒子有確實鎖好' },
-        { time: '09:30', icon: 'fa-bread-slice', title: '早餐：ISAAC 吐司', desc: '吃住宿附近的 ISAAC，記得拿小奎 (MINGYU) 小卡！', map: 'ISAAC Toast Hongdae', btnText: null },
-        { time: '11:00', icon: 'fa-bag-shopping', title: '弘大商圈開逛', desc: '逛 SPAO、大創，Olive Young 也可以視情況晚上再逛。', map: 'SPAO Hongdae', btnText: 'OY必買清單', modalTitle: 'Olive Young 掃貨目標', modalContent: '1. Medicube 膠原蛋白果凍面膜\n2. SKINFOOD 胡蘿蔔鎮靜棉片\n3. Torriden 玻尿酸精華\n4. 零食伴手禮 (貝果餅乾)' },
-        { time: '15:00', icon: 'fa-mug-hot', title: '下午茶：Oats Coffee', desc: '前往延南洞喝超人氣的 Oats 燕麥咖啡休息一下。', map: 'Oats Coffee Yeonnam', btnText: null },
-        { time: '17:30', icon: 'fa-syringe', title: 'Hanley 醫美 / Lily 自由活動', desc: 'Hanley 赴弘大 ppeum 醫美，Lily 於弘大商圈繼續逛街。', map: 'ppeum clinic hongdae', btnText: '預約截圖', modalTitle: '醫美預約確認', modalContent: '👤 預約姓名：Hanley\n🕒 報到時間：17:20\n🏥 診所：弘大 ppeum\n⚠️ 術後記得加強保濕與防曬' },
-        { time: '19:30', icon: 'fa-utensils', title: '會合晚餐 (豬腳神話)', desc: '兩人會合吃晚餐！推薦弘大必吃「豬腳神話」(미쓰족발)，招牌蒜味豬腳必點。', map: '미쓰족발 홍대', btnText: null }
+        { 
+          time: '01:25', icon: 'fa-plane-departure', title: '搭乘紅眼班機出發', 
+          desc: '準備出發！飛行時間約 2.5 小時。', map: 'Taoyuan International Airport Terminal 1',
+          buttons: [{ 
+            label: '電子機票', icon: 'fa-ticket', title: '航班資訊',
+            content: '✈️ <strong>航班：LJ734 (真航空)</strong><br><br>🛫 起飛：06/04 (四) 01:25<br>桃園機場 T1<br><br>🛬 抵達：06/04 (四) 05:00<br>仁川機場 T2' 
+          }]
+        },
+        { 
+          time: '05:00', icon: 'fa-plane-arrival', title: '抵達仁川機場 (T2)', 
+          desc: '下機領行李。等到早上 7 點去辦理 SES 快速通關！', map: 'Incheon Airport Terminal 2',
+          buttons: [{ 
+            label: 'SES 辦理攻略', icon: 'fa-passport', title: 'SES 快速通關',
+            content: '📍 <strong>辦理位置 (T2)</strong><br><br>寄完行李後，直接到 <strong>2樓 行政中心</strong>。<br><br>💡 流程：抽號碼牌辦理，不用填入境卡跟 K-ETA。不到10分鐘就辦完了！下次入境韓國可以直接走自動通關！' 
+          }]
+        },
+        { 
+          time: '09:00', icon: 'fa-suitcase-rolling', title: '抵達弘大住宿寄放行李', 
+          desc: '將行李寄放在房源前面的藍色盒子裡。', map: '14 Wausan-ro 33-gil' 
+        },
+        { 
+          time: '09:30', icon: 'fa-bread-slice', title: '早餐：ISAAC 吐司', 
+          desc: '吃經典奶油吐司，最重要的是：記得拿小奎的小卡！', map: 'ISAAC Toast Hongdae' 
+        },
+        { 
+          time: '11:00', icon: 'fa-bag-shopping', title: '弘大商圈開逛', 
+          desc: '逛 SPAO、大創，Olive Young 也可以視情況晚上再逛。', map: 'Hongdae Shopping Street',
+          buttons: [
+            { 
+              label: 'H的大創想買', icon: 'fa-folder-open', title: 'H的大創購物清單',
+              content: `
+                <ul class="shopping-list">
+                  <li>
+                    <img src="images/item1.jpg" alt="Mommy Care" onerror="this.src='https://placehold.co/120?text=Mommy+Care'">
+                    <div><strong>Mommy Care 海葡萄保濕棉片</strong><small>80片裝 / 5,000₩</small></div>
+                  </li>
+                  <li>
+                    <img src="images/item2.jpg" alt="VT Toner" onerror="this.src='https://placehold.co/120?text=VT+Toner'">
+                    <div><strong>VT PDRN 光彩化妝水</strong><small>200ml (綠色漸層瓶) / 5,000₩</small></div>
+                  </li>
+                  <li>
+                    <img src="images/item3.jpg" alt="Spray Bottle" onerror="this.src='https://placehold.co/120?text=Spray+Bottle'">
+                    <div><strong>化妝品細緻噴霧罐</strong><small>120ml (透明瓶) / 1,000₩</small></div>
+                  </li>
+                </ul>
+              `
+            },
+            { 
+              label: 'H的OY必買清單', icon: 'fa-folder-open', title: 'H的Olive Young 清單',
+              content: `
+                <ul class="shopping-list">
+                  <li>
+                    <img src="images/oy1.png" alt="THE TOOL LAB" onerror="this.src='https://placehold.co/120?text=THE+TOOL+LAB'">
+                    <div><strong>THE TOOL LAB 粉撲組</strong><small>Happyrim Aqua Puff</small></div>
+                  </li>
+                  <li>
+                    <img src="images/oy2.png" alt="3CE" onerror="this.src='https://placehold.co/120?text=3CE'">
+                    <div><strong>3CE 粉樣柔光潤唇膏</strong><small>色號: #salty sweet</small></div>
+                  </li>
+                  <li>
+                    <img src="images/oy3.png" alt="JUMISO" onerror="this.src='https://placehold.co/120?text=JUMISO'">
+                    <div><strong>Jumiso 洗面乳</strong><small>水楊酸淨化洗面乳</small></div>
+                  </li>
+                  <li>
+                    <img src="images/oy4.png" alt="CAREPLUS" onerror="this.src='https://placehold.co/120?text=CAREPLUS'">
+                    <div><strong>CAREPLUS 痘痘貼</strong><small>189枚入 / 藍色包裝</small></div>
+                  </li>
+                  <li>
+                    <img src="images/oy5.png" alt="FWEE" onerror="this.src='https://placehold.co/120?text=FWEE'">
+                    <div><strong>FWEE Spa UV提亮妝前乳</strong><small>SPF50+ Wet Dewy</small></div>
+                  </li>
+                  <li>
+                    <img src="images/oy6.png" alt="innisfree" onerror="this.src='https://placehold.co/120/f1f3f5/a4b0be?text=No+Image'">
+                    <div><strong>innisfree 維他命Ｃ精華</strong><small>（現場找實體）</small></div>
+                  </li>
+                </ul>
+              `
+            }
+          ]
+        },
+        { 
+          time: '17:30', icon: 'fa-syringe', title: '醫美保養 (Hanley)', 
+          desc: 'Hanley 醫美行程。Lily 弘大自由活動繼續逛！', map: 'ppeum clinic hongdae' 
+        },
+        { 
+          time: '19:30', icon: 'fa-utensils', title: '晚餐：豬腳神話 (會合)', 
+          desc: '兩人會合！吃弘大超人氣的蒜味豬腳，會附贈辣湯刀削麵跟沙拉，軟嫩解膩。', map: '미쓰족발 Myth Jokbal' 
+        }
       ],
       day2_A: [
-        { time: '09:00', icon: 'fa-train-subway', title: '出發前往聖水洞', desc: '預計 9 點前出門，從弘大搭乘地鐵前往聖水站。', map: 'Seongsu Station', btnText: null },
-        { time: '09:40', icon: 'fa-mug-hot', title: '聖水早午餐 (推薦: Cafe Onion)', desc: '推薦在廢墟工業風的 Cafe Onion 吃特色麵包，或到 Schedule Seongsu 吃精緻早午餐！', map: 'Cafe Onion Seongsu', btnText: '早午餐備案', modalTitle: '聖水洞早餐推薦', modalContent: '🥐 Cafe Onion (廢墟風人氣麵包店，雪山麵包必點)\n🍝 Schedule Seongsu (精緻歐風早午餐，環境超美)\n💡 如果想多睡一點，也可以在弘大吃完 ISAAC 再出發！' },
-        { time: '10:40', icon: 'fa-bag-shopping', title: '聖水洞開逛', desc: '吃飽後開始逛街！各種文創 Pop-up Store、香氛品牌等你來踩點。', map: 'Seongsu-dong', btnText: null },
-        { time: '12:30', icon: 'fa-scissors', title: 'Hanley 韓系剪髮', desc: '專屬行程 (1小時)！Lily 可在附近找間美美的咖啡廳休息或繼續逛。', map: '성동구 아차산로93', btnText: '髮廊資訊', modalTitle: '剪髮預約資訊', modalContent: '📍 地址：首爾 城東區 阿且山路 93，5樓\n(성동구 아차산로93 5층)\n🚇 交通：從 성수역（聖水站）1號出口出來\n🕒 時間：12:30 - 13:30' },
-        { time: '13:40', icon: 'fa-taxi', title: '搭車前往漢南洞', desc: '剪完頭髮後，搭乘計程車前往漢南洞 (車程約 20-30 分鐘)。', map: 'Hannam-dong', btnText: null },
-        { time: '14:10', icon: 'fa-bag-shopping', title: '漢南洞開逛 (方案A)', desc: '韓國超火紅設計師品牌都在這！', map: 'Hannam-dong', btnText: '必逛清單', modalTitle: '漢南洞必逛推薦', modalContent: '1. Mardi Mercredi (小雛菊服飾，超夯)\n2. MARITHÉ FRANÇOIS GIRBAUD (法式休閒)\n3. Rockfish Weatherwear (芭蕾舞鞋/雨鞋)\n4. emis (帽子/包包)\n5. Depound (質感帆布包)\n⚠️ 漢南洞很多斜坡，穿好走的鞋！' },
-        { time: '17:00', icon: 'fa-car', title: '離開漢南洞', desc: '搭 Uber 回弘大。五點準時離開！避開下班尖峰塞車，確保 18:00 到診所。', map: 'Hongdae', btnText: null },
-        { time: '18:00', icon: 'fa-syringe', title: '醫美：吳微麗珠皮膚科', desc: '三人一起進行第二次醫美療程 (預計到 20:00)。', map: '吳微麗珠 피부과', btnText: '醫美資訊', modalTitle: '預約確認', modalContent: '🏥 診所：吳微麗珠皮膚科\n👥 人數：三人同行\n🕒 預約時間：18:00\n⏳ 預計結束時間：20:00' },
-        { time: '20:30', icon: 'fa-cow', title: '晚餐：奉山精肉 (和牛)', desc: '晚餐吃弘大超讚的和牛/韓牛「Bongsan Jeongyuk (奉山精肉)」。', map: 'Bongsan Jeongyuk', btnText: '訂位資訊', modalTitle: '餐廳訂位', modalContent: '🥩 餐廳：Bongsan Jeongyuk (奉山精肉)\n🕒 預約時間：20:30\n💡 吃完如果有體力，可以繼續在弘大商圈續攤逛街補貨！' }
+        { time: '09:00', icon: 'fa-train-subway', title: '出發前往聖水洞', desc: '吃早餐前先移動到聖水洞。', map: 'Hongdae Station' },
+        { time: '09:40', icon: 'fa-mug-hot', title: '聖水早午餐', desc: '推薦吃廢墟風 Cafe Onion 的雪山麵包，或是精緻的 Schedule Seongsu。吃完周邊逛逛。', map: 'Cafe Onion Seongsu' },
+        { time: '12:30', icon: 'fa-scissors', title: '髮廊剪髮 (Hanley)', desc: '從聖水站 1 號出口出來。預計剪一小時至 13:30。', map: '성동구 아차산로93' },
+        { time: '13:45', icon: 'fa-taxi', title: '搭計程車前往漢南洞', desc: '車程約 15-20 分鐘。', map: 'Hannam-dong' },
+        { time: '14:15', icon: 'fa-bag-shopping', title: '漢南洞潮牌巡禮', desc: '韓國設計師品牌一級戰區！由於 17:00 必須離開，請鎖定目標逛。', map: 'Hannam-dong', 
+          buttons: [{ label: '必逛清單', icon: 'fa-list', title: '漢南洞重點品牌', content: '1. Mardi Mercredi (小雛菊)<br>2. MARITHÉ (高允貞代言)<br>3. Rockfish (雨鞋/芭蕾舞鞋)<br>4. emis (帽子/包包)<br>5. Depound (法式慵懶風)' }] 
+        },
+        { time: '17:00', icon: 'fa-car', title: '搭 Uber 回弘大', desc: '⚠️ 必須在這個時間點離開，避開下班塞車潮，以免耽誤 18:00 的醫美！', map: 'Hongdae' },
+        { time: '18:00', icon: 'fa-syringe', title: '吳微麗珠皮膚科 (三人一起)', desc: '第二次醫美保養，三人同行。預計 20:00 結束。', map: 'Hongdae' },
+        { time: '20:30', icon: 'fa-cow', title: '晚餐：頂級和牛', desc: '醫美完補充蛋白質！吃完繼續在弘大逛街消化。', map: 'Bongsan Jeongyuk' }
       ],
       day2_B: [
-        { time: '09:00', icon: 'fa-train-subway', title: '出發前往聖水洞', desc: '預計 9 點前出門，從弘大搭乘地鐵前往聖水站。', map: 'Seongsu Station', btnText: null },
-        { time: '09:40', icon: 'fa-mug-hot', title: '聖水早午餐 (推薦: Cafe Onion)', desc: '推薦在廢墟工業風的 Cafe Onion 吃特色麵包，或到 Schedule Seongsu 吃精緻早午餐！', map: 'Cafe Onion Seongsu', btnText: '早午餐備案', modalTitle: '聖水洞早餐推薦', modalContent: '🥐 Cafe Onion (廢墟風人氣麵包店，雪山麵包必點)\n🍝 Schedule Seongsu (精緻歐風早午餐，環境超美)\n💡 如果想多睡一點，也可以在弘大吃完 ISAAC 再出發！' },
-        { time: '10:40', icon: 'fa-bag-shopping', title: '聖水洞開逛', desc: '吃飽後開始逛街！各種文創 Pop-up Store、香氛品牌等你來踩點。', map: 'Seongsu-dong', btnText: null },
-        { time: '12:30', icon: 'fa-scissors', title: 'Hanley 韓系剪髮', desc: '專屬行程 (1小時)！Lily 可在附近找間美美的咖啡廳休息或繼續逛。', map: '성동구 아차산로93', btnText: '髮廊資訊', modalTitle: '剪髮預約資訊', modalContent: '📍 地址：首爾 城東區 阿且山路 93，5樓\n(성동구 아차산로93 5층)\n🚇 交通：從 성수역（聖水站）1號出口出來\n🕒 時間：12:30 - 13:30' },
-        { time: '13:40', icon: 'fa-taxi', title: '搭車前往新沙洞', desc: '剪完頭髮後，搭乘計程車前往新沙洞林蔭道。', map: 'Garosu-gil', btnText: null },
-        { time: '14:10', icon: 'fa-bag-shopping', title: '新沙洞開逛 (方案B)', desc: '享受林蔭道的悠閒氛圍，各種美妝、潮牌與咖啡廳。', map: 'Garosu-gil', btnText: '必逛清單', modalTitle: '新沙洞必逛推薦', modalContent: '1. Tamburins (Jennie代言人氣香氛)\n2. Gentle Monster (墨鏡)\n3. Maison Kitsuné (小狐狸咖啡與服飾)\n4. 沿途各種韓國當地服飾與美妝' },
-        { time: '17:00', icon: 'fa-car', title: '離開新沙洞', desc: '搭 Uber 回弘大。五點準時離開！避開下班尖峰塞車，確保 18:00 到診所。', map: 'Hongdae', btnText: null },
-        { time: '18:00', icon: 'fa-syringe', title: '醫美：吳微麗珠皮膚科', desc: '三人一起進行第二次醫美療程 (預計到 20:00)。', map: '吳微麗珠 피부과', btnText: '醫美資訊', modalTitle: '預約確認', modalContent: '🏥 診所：吳微麗珠皮膚科\n👥 人數：三人同行\n🕒 預約時間：18:00\n⏳ 預計結束時間：20:00' },
-        { time: '20:30', icon: 'fa-cow', title: '晚餐：奉山精肉 (和牛)', desc: '晚餐吃弘大超讚的和牛/韓牛「Bongsan Jeongyuk (奉山精肉)」。', map: 'Bongsan Jeongyuk', btnText: '訂位資訊', modalTitle: '餐廳訂位', modalContent: '🥩 餐廳：Bongsan Jeongyuk (奉山精肉)\n🕒 預約時間：20:30\n💡 吃完如果有體力，可以繼續在弘大商圈續攤逛街補貨！' }
+        { time: '09:00', icon: 'fa-train-subway', title: '出發前往聖水洞', desc: '吃早餐前先移動到聖水洞。', map: 'Hongdae Station' },
+        { time: '09:40', icon: 'fa-mug-hot', title: '聖水早午餐', desc: '推薦吃廢墟風 Cafe Onion 的雪山麵包。吃完在周邊逛逛。', map: 'Cafe Onion Seongsu' },
+        { time: '12:30', icon: 'fa-scissors', title: '髮廊剪髮 (Hanley)', desc: '預計剪一小時至 13:30。', map: '성동구 아차산로93' },
+        { time: '13:45', icon: 'fa-taxi', title: '搭計程車前往新沙洞', desc: '前往林蔭道。', map: 'Garosu-gil' },
+        { time: '14:15', icon: 'fa-bag-shopping', title: '新沙洞林蔭道逛街', desc: '逛 TAMBURINS、Gentle Monster、各式香氛與美妝品牌旗艦店。', map: 'Garosu-gil' },
+        { time: '17:00', icon: 'fa-car', title: '搭 Uber 回弘大', desc: '⚠️ 必須在這個時間點離開新沙洞！', map: 'Hongdae' },
+        { time: '18:00', icon: 'fa-syringe', title: '吳微麗珠皮膚科 (三人一起)', desc: '第二次醫美保養，三人同行。預計 20:00 結束。', map: 'Hongdae' },
+        { time: '20:30', icon: 'fa-cow', title: '晚餐：頂級和牛', desc: '醫美完補充蛋白質！', map: 'Bongsan Jeongyuk' }
       ],
       day3: [
-        { time: '10:30', icon: 'fa-bag-shopping', title: '明洞商圈開逛', desc: '早點出發來明洞，人比較少。可以先換錢，然後逛逛美妝與服飾。', map: 'Myeong-dong', btnText: '換錢資訊', modalTitle: '明洞換錢所', modalContent: '📍 推薦：大使館換錢所 / 一品香換錢所\n💡 記得帶台幣或美金現鈔來換，明洞的匯率通常是全首爾最好的！' },
-        { time: '13:00', icon: 'fa-crab', title: '午餐：烏達里家 (醬蟹)', desc: '就在明洞商圈內！推薦點「爆卵醬蟹套餐」，會附贈很多小菜跟美味蒸蛋。', map: '오다리집 명동', btnText: '醬蟹備案', modalTitle: '醬蟹選擇指南', modalContent: '🦀 烏達里家 (明洞)：觀光客最愛，排進行程最順暢。\n🦀 真味食堂 (麻浦)：米其林推薦，但「極度難訂位」，沒預約幾乎吃不到。\n🦀 順美家 (東大門)：醬蟹吃到飽，CP值高。' },
-        { time: '15:30', icon: 'fa-camera-retro', title: '解放村 (Haebangchon)', desc: '從明洞搭計程車前往(約10-15分)。在隱藏於南山腳下的文青聚落喝咖啡看夕陽。', map: 'Sinheung Market', btnText: '必拍景點', modalTitle: '解放村 (HBC) 推薦', modalContent: '📷 新興市場：廢墟改造的復古文創街區，超有氣氛。\n☕ 景觀咖啡廳：推薦 Urban Cliff 或 Royal Food and Drink，可以俯瞰整個首爾市景！' },
-        { time: '19:00', icon: 'fa-bowl-food', title: '晚餐：孔陵一隻雞 (新村店)', desc: '搭車到新村吃晚餐。雞肉鮮嫩，精華是最後加點的「海苔雞蛋粥」，必吃！', map: '공릉닭한마리 신촌', btnText: '餐廳比較', modalTitle: '一隻雞推薦', modalContent: '🐔 孔陵一隻雞 (新村店)：台灣人最愛！吃完離住宿的弘大只有兩站地鐵，超方便。\n🐔 陳玉華老奶奶 (東大門)：名氣最大、蒜味濃厚，搭配年糕是絕配。' },
-        { time: '20:30', icon: 'fa-cart-shopping', title: '新村/弘大 散步採買', desc: '吃飽後可以在新村商圈散步消化，或直接回弘大繼續補齊還沒買完的藥妝。', map: 'Sinchon Station', btnText: null }
+        { time: '10:30', icon: 'fa-train-subway', title: '前往明洞', desc: '早上先去明洞大使館換錢所換一點韓幣備用，接著開逛。', map: 'Myeongdong', 
+          buttons: [{ label: '換錢所位置', icon: 'fa-won-sign', title: '明洞大使館換錢所', content: '<strong>明洞大使館換錢所</strong><br>匯率通常是首爾市區最好的。<br>地址：明洞2街 105 (就在中國大使館旁邊)' }] 
+        },
+        { time: '12:00', icon: 'fa-crab', title: '午餐：烏達里家醬蟹', desc: '就在明洞商圈內，逛完直接吃超順路！爆卵醬蟹配海苔飯超級下飯。', map: 'Odarijip Myeongdong' },
+        { time: '14:30', icon: 'fa-camera', title: '解放村看夕陽與咖啡廳', desc: '從明洞搭車上去很快。逛逛新興市場 (Sinheung Market)，找間高空咖啡廳看首爾市景。', map: 'Haebangchon' },
+        { time: '18:30', icon: 'fa-bowl-food', title: '晚餐：孔陵一隻雞', desc: '從解放村下山後搭車到新村。雞湯鮮甜，最後一定要加點「海苔雞蛋粥」收尾！', map: 'Gongneung Dakhanmari Sinchon' },
+        { time: '20:30', icon: 'fa-person-walking', title: '新村/弘大散步', desc: '吃飽後可以從新村慢慢逛街散步走回弘大的住宿地，消化一下。', map: 'Sinchon' }
       ],
       day4: [
-        { time: '10:30', icon: 'fa-tree', title: '延南洞漫步', desc: '京義線林蔭道散步、享用可頌', map: 'Yeonnam-dong', btnText: null },
-        { time: '12:30', icon: 'fa-bacon', title: '午餐：水芹烤肉', desc: '夢豬肉 (꿈돼지)', map: '꿈돼지', btnText: null },
-        { time: '15:00', icon: 'fa-suitcase-rolling', title: '最後採買與打包', desc: '買齊伴手禮，準備前往機場', map: 'Hongdae', btnText: null },
-        { time: '19:30', icon: 'fa-plane-departure', title: '前往仁川機場', desc: '搭乘機場快線 (AREX) 準備回程', map: 'Incheon Airport', btnText: '回程資訊', modalTitle: '回程航班', modalContent: '🛫 起飛：06/07 22:40 (仁川 T2)\n🛬 抵達：06/08 00:10 (桃機 T1)\n📍 請於 20:30 前抵達櫃檯報到' }
+        { time: '10:30', icon: 'fa-tree', title: '延南洞漫步', desc: '弘大旁的唯美文青街區，找間咖啡廳吃可頌享受最後一天的早晨。', map: 'Yeonnam-dong' },
+        { time: '12:30', icon: 'fa-bacon', title: '午餐：水芹烤肉', desc: '用清爽解膩的水芹菜配上烤五花肉，為這趟旅程畫下完美句點！', map: 'Hongdae Pork Belly' },
+        { time: '15:00', icon: 'fa-suitcase-rolling', title: '最後採買與行李打包', desc: '回民宿拿行李，確認戰利品都塞進去了。', map: 'Hongdae' },
+        { time: '18:30', icon: 'fa-train', title: '搭機捷前往機場', desc: '搭乘 AREX 機場鐵路前往機場，車程約 50 分鐘。', map: 'Incheon Airport' },
+        { time: '19:30', icon: 'fa-ticket', title: '抵達機場報到', desc: '逛免稅店、退稅。', map: 'Incheon Airport Terminal 2',
+          buttons: [{ label: '回程航班', icon: 'fa-plane', title: '回程航班', content: '✈️ <strong>回程航班</strong><br><br>🛫 起飛：06/07 (日) 22:40<br>仁川機場 T2<br><br>🛬 抵達：06/08 (一) 00:10<br>桃園機場 T1' }]
+        }
       ]
     };
 
-    const timelineContainer = document.getElementById('timeline-container');
-    const modalOverlay = document.getElementById('info-modal');
-    const modalTitle = document.getElementById('modal-title');
-    const modalBody = document.getElementById('modal-body');
+    let currentDay2Plan = 'A';
+    
+    // 用於安全儲存各按鈕 HTML 內容的對照表，徹底解決 onclick 屬性引號衝突
+    let modalLookup = {};
 
-    /* =========================================
-       2. 渲染邏輯 (UI 產生器)
-       ========================================= */
     function renderTimeline(dayKey) {
-      // 清空目前內容
+      const timelineContainer = document.getElementById('timeline-container');
       timelineContainer.innerHTML = '';
       
-      // 處理 Day 2 的方案切換邏輯 (動態生成按鈕)
+      // 清空快取
+      modalLookup = {};
+      
       let actualDataKey = dayKey;
       if (dayKey === 'day2' || dayKey === 'day2_A' || dayKey === 'day2_B') {
-        const currentPlan = (dayKey === 'day2_B') ? 'day2_B' : 'day2_A';
-        actualDataKey = currentPlan;
-        
+        actualDataKey = 'day2_' + currentDay2Plan;
         const toggleHTML = `
           <div class="timeline-item" style="margin-bottom: 20px; z-index: 10;">
             <div style="background: #F1F5F9; padding: 4px; border-radius: 12px; display: inline-flex; gap: 8px;">
-              <button onclick="renderTimeline('day2_A')" style="padding: 8px 16px; border-radius: 8px; border: none; font-family: 'Noto Sans TC'; font-weight: 600; font-size: 13px; cursor: pointer; transition: all 0.2s; background: ${currentPlan === 'day2_A' ? '#FFFFFF' : 'transparent'}; color: ${currentPlan === 'day2_A' ? '#111827' : '#64748B'}; box-shadow: ${currentPlan === 'day2_A' ? '0 2px 4px rgba(0,0,0,0.05)' : 'none'};">方案 A：去漢南洞</button>
-              <button onclick="renderTimeline('day2_B')" style="padding: 8px 16px; border-radius: 8px; border: none; font-family: 'Noto Sans TC'; font-weight: 600; font-size: 13px; cursor: pointer; transition: all 0.2s; background: ${currentPlan === 'day2_B' ? '#FFFFFF' : 'transparent'}; color: ${currentPlan === 'day2_B' ? '#111827' : '#64748B'}; box-shadow: ${currentPlan === 'day2_B' ? '0 2px 4px rgba(0,0,0,0.05)' : 'none'};">方案 B：去新沙洞</button>
+              <button onclick="switchPlan('A')" style="padding: 8px 16px; border-radius: 8px; border: none; font-family: 'Noto Sans TC'; font-weight: 600; font-size: 13px; cursor: pointer; transition: all 0.2s; background: ${currentDay2Plan === 'A' ? '#FFFFFF' : 'transparent'}; color: ${currentDay2Plan === 'A' ? '#111827' : '#64748B'}; box-shadow: ${currentDay2Plan === 'A' ? '0 2px 4px rgba(0,0,0,0.05)' : 'none'};">方案 A：去漢南洞</button>
+              <button onclick="switchPlan('B')" style="padding: 8px 16px; border-radius: 8px; border: none; font-family: 'Noto Sans TC'; font-weight: 600; font-size: 13px; cursor: pointer; transition: all 0.2s; background: ${currentDay2Plan === 'B' ? '#FFFFFF' : 'transparent'}; color: ${currentDay2Plan === 'B' ? '#111827' : '#64748B'}; box-shadow: ${currentDay2Plan === 'B' ? '0 2px 4px rgba(0,0,0,0.05)' : 'none'};">方案 B：去新沙洞</button>
             </div>
           </div>
         `;
@@ -459,21 +600,30 @@
 
       const dayData = itineraryData[actualDataKey];
       
-      dayData.forEach(item => {
-        // 生成 Google Maps 導航連結 (透過 URL Search 參數)
+      dayData.forEach((item, itemIdx) => {
         const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.map)}`;
         
-        // 生成 Modal 按鈕 (如果有設定按鈕文字的話)
+        // 渲染按鈕 (完美的藍框 FontAwesome 樣式，並綁定獨特 data key)
         let btnHTML = '';
-        if (item.btnText) {
-          btnHTML = `
-            <button class="modal-btn" onclick="openModal('${item.modalTitle}', '${item.modalContent.replace(/\n/g, '\\n')}')">
-              <i class="fa-regular fa-folder-open"></i> ${item.btnText}
-            </button>
-          `;
+        if (item.buttons) {
+          btnHTML = `<div class="btn-group">`;
+          item.buttons.forEach((btn, btnIdx) => {
+            const lookupKey = `${actualDataKey}_${itemIdx}_${btnIdx}`;
+            // 存入全域快取，避免引號衝突
+            modalLookup[lookupKey] = {
+              title: btn.title,
+              content: btn.content
+            };
+            
+            btnHTML += `
+              <button class="modal-btn" data-modal-key="${lookupKey}">
+                <i class="fa-solid ${btn.icon}"></i> ${btn.label}
+              </button>
+            `;
+          });
+          btnHTML += `</div>`;
         }
 
-        // 組裝卡片 HTML
         const cardHTML = `
           <div class="timeline-item">
             <div class="time-col">${item.time}</div>
@@ -488,62 +638,61 @@
             </div>
           </div>
         `;
-        
-        // 插入容器
         timelineContainer.insertAdjacentHTML('beforeend', cardHTML);
       });
     }
 
-    /* =========================================
-       3. 互動邏輯 (Tab 切換與 Modal)
-       ========================================= */
-    // Tab 點擊事件監聽
+    // 使用現代 Event Listener & 事件代理 (Event Delegation) 徹底取代 HTML onclick 屬性
+    document.getElementById('timeline-container').addEventListener('click', function(e) {
+      const btn = e.target.closest('.modal-btn');
+      if (btn) {
+        const key = btn.getAttribute('data-modal-key');
+        if (key && modalLookup[key]) {
+          openModal(modalLookup[key].title, modalLookup[key].content);
+        }
+      }
+    });
+
     document.querySelectorAll('.nav-item').forEach(nav => {
       nav.addEventListener('click', function() {
-        // 移除所有 active class
         document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-        // 加上被點擊的 active class
         this.classList.add('active');
         
-        // 同步更新首頁頂部的日期顯示
         const fullDate = this.getAttribute('data-full-date');
         document.getElementById('current-date').innerText = fullDate;
         
-        // 取得 data-day 屬性並重新渲染
         const selectedDay = this.getAttribute('data-day');
         renderTimeline(selectedDay);
-
-        // 捲動回頂部
         document.querySelector('.main-content').scrollTop = 0;
       });
     });
 
-    // 開啟 Modal
+    window.switchPlan = function(plan) {
+      currentDay2Plan = plan;
+      renderTimeline('day2');
+    }
+
     window.openModal = function(title, content) {
-      modalTitle.innerText = title;
-      modalBody.innerText = content;
-      modalOverlay.classList.add('active');
+      document.getElementById('modal-title').innerText = title;
+      document.getElementById('modal-body').innerHTML = content;
+      document.getElementById('info-modal').classList.add('active');
     }
 
-    // 關閉 Modal
     window.closeModal = function() {
-      modalOverlay.classList.remove('active');
+      document.getElementById('info-modal').classList.remove('active');
     }
 
-    // 點擊背景也能關閉 Modal
-    modalOverlay.addEventListener('click', function(e) {
-      if(e.target === modalOverlay) closeModal();
+    // 點擊關閉按鈕事件
+    document.getElementById('close-modal-btn').addEventListener('click', closeModal);
+
+    // 點擊暗色背景關閉彈窗
+    document.getElementById('info-modal').addEventListener('click', function(e) {
+      if(e.target === this) closeModal();
     });
 
-    /* =========================================
-       4. 初始化 (頁面載入時執行)
-       ========================================= */
-    // 預設渲染 Day 1
-    renderTimeline('day1');
-    document.getElementById('current-date').innerText = 'JUNE 4, 2026';
-
-    // (未來擴充) 你可以在這裡使用 fetch() 呼叫 OpenWeather API 替換天氣
-    // fetch('WEATHER_API_URL').then(...).then(data => { document.getElementById('weather-text').innerText = ... })
+    window.onload = () => {
+      renderTimeline('day1');
+    };
   </script>
 </body>
 </html>
