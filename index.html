@@ -438,6 +438,14 @@
     </div>
   </div>
 
+  <!-- 新增：圖片放大彈窗 (Zoom Modal) -->
+  <div class="modal-overlay" id="zoom-modal" style="background: rgba(17, 24, 39, 0.85); z-index: 200;">
+    <div style="position: relative; max-width: 90%; max-height: 80vh; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+      <img id="zoomed-image" src="" style="max-width: 100%; max-height: 70vh; border-radius: 16px; object-fit: contain; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 2px solid rgba(255,255,255,0.1);">
+      <button id="close-zoom-btn" style="margin-top: 20px; background: #FFFFFF; color: #111827; border: none; padding: 10px 24px; border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">返回清單 / Back</button>
+    </div>
+  </div>
+
   <script>
     const itineraryData = {
       day1: [
@@ -692,6 +700,28 @@
     // 點擊暗色背景關閉彈窗
     document.getElementById('info-modal').addEventListener('click', function(e) {
       if(e.target === this) closeModal();
+    });
+
+    // 新增：監聽清單內的圖片點擊，點擊後放大
+    document.getElementById('modal-body').addEventListener('click', function(e) {
+      const img = e.target.closest('img');
+      if (img) {
+        const imgSrc = img.getAttribute('src');
+        // 排除預設破圖的 placeholder
+        if (imgSrc && !imgSrc.includes('placehold.co')) {
+          document.getElementById('zoomed-image').src = imgSrc;
+          document.getElementById('zoom-modal').classList.add('active');
+        }
+      }
+    });
+
+    // 新增：關閉放大圖片的邏輯
+    function closeZoom() {
+      document.getElementById('zoom-modal').classList.remove('active');
+    }
+    document.getElementById('close-zoom-btn').addEventListener('click', closeZoom);
+    document.getElementById('zoom-modal').addEventListener('click', function(e) {
+      if (e.target === this) closeZoom();
     });
 
     window.onload = () => {
