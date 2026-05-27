@@ -431,6 +431,17 @@
         .zoom-close-btn:active {
             background: rgba(255, 255, 255, 0.4);
         }
+
+        @media (min-width: 501px) {
+            body {
+                background-color: #E2E8F0; /* 電腦版左右兩側的底色 */
+            }
+            /* 確保中間的行程區塊背景色為純淨的淺灰色，不會透過去看到底色 */
+            .timeline-container, .plan-switcher-container {
+                background-color: var(--bg-color);
+                box-shadow: 1px 0 0 rgba(0,0,0,0.03), -1px 0 0 rgba(0,0,0,0.03); /* 左右微弱邊界陰影，增加立體感 */
+            }
+        }
     </style>
 </head>
 <body>
@@ -502,7 +513,7 @@
                     location: '桃園國際機場 第一航廈',
                     mapLink: 'https://maps.google.com/?q=Taoyuan+International+Airport+Terminal+1',
                     desc: '準備出發！飛行時間約 2.5 小時。',
-                    buttons: [{ id: 'flight-info', label: '電子機票', icon: 'fa-ticket' }]
+                    buttons: [{ id: 'flight-info', label: '航班資訊', icon: 'fa-ticket' }]
                 },
                 {
                     time: '05:00',
@@ -721,6 +732,18 @@
                     buttons: [{ id: 'exchange', label: '換錢所位置', icon: 'fa-coins' }]
                 },
                 {
+                    time: '',
+                    title: '明洞商圈開逛',
+                    icon: '🛍️',
+                    location: '明洞商圈 (Myeongdong)',
+                    mapLink: 'https://maps.google.com/?q=Myeongdong',
+                    desc: '逛藥局、隨處皆可逛',
+                    buttons: [
+                        { id: 'pharmacy-list', label: 'H的藥局想買', icon: 'fa-folder-open' },
+                    ]
+                },
+                
+                {
                     time: '12:00',
                     title: '午餐：烏達里家醬蟹',
                     icon: '🦀',
@@ -802,11 +825,11 @@
         // 標題也都在此完全更新為 H的專屬標記
         const modalLookup = {
             'flight-info': {
-                title: '電子機票',
+                title: '航班資訊',
                 html: `
                     <strong>航班：LJ734 (真航空)</strong><br><br>
                     起飛：06/04 (四) 01:25<br>桃園機場 T1<br><br>
-                    抵達：06/04 (四) 05:00<br>仁川機場 T2
+                    抵達：06/04 (四) 05:00<br>仁川機場 T2<br><br>
                 `
             },
             'ses-guide': {
@@ -883,6 +906,27 @@
                                 <small>維他命C淨亮淡斑精華</small>
                             </div>
                         </li>
+                        <li>
+                            <img src="images/oy7.jpg" alt="積雪草棉片" onerror="this.src='https://placehold.co/120x120/f1f3f5/a4b0be?text=No+Image'">
+                            <div>
+                                <strong>Mediheal 積雪草棉片</strong><br>
+                                <small>不用多說ㄉ舒服</small>
+                            </div>
+                        </li>
+                        <li>
+                            <img src="images/oy8.jpg" alt="卸妝膏" onerror="this.src='https://placehold.co/120x120/f1f3f5/a4b0be?text=No+Image'">
+                            <div>
+                                <strong>卸妝膏</strong><br>
+                                <small>待補</small>
+                            </div>
+                        </li>
+                        <li>
+                            <img src="images/oy9.jpg" alt="凡士林面膜" onerror="this.src='https://placehold.co/120x120/f1f3f5/a4b0be?text=No+Image'">
+                            <div>
+                                <strong>凡士林面膜</strong><br>
+                                <small>基本保濕款</small>
+                            </div>
+                        </li>
                     </ul>
                 `
             },
@@ -903,6 +947,34 @@
                     <strong>明洞大使館換錢所</strong><br><br>
                     匯率通常是首爾市區最好的，位置就在中國大使館旁邊。<br><br>
                     建議抵達明洞先去換一兩天的餐費與小額零錢！
+                `
+            },
+            'pharmacy-list': {
+                title: 'H的藥局清單',
+                html: `
+                    <ul class="shopping-list">
+                        <li>
+                            <img src="images/pharmacy.jpg" alt="去疤膏" onerror="this.src='https://placehold.co/120x120?text=Mommy+Care'">
+                            <div>
+                                <strong>去疤膏</strong><br>
+                                <small>疤痕out</small>
+                            </div>
+                        </li>
+                        <li>
+                            <img src="images/pharmacy.jpg" alt="熊貓 PDRN 修復霜" onerror="this.src='https://placehold.co/120x120?text=Panda+PDRN'">
+                            <div>
+                                <strong>熊貓 PDRN 修復霜</strong><br>
+                                <small>反正聽說很推</small>
+                            </div>
+                        </li>
+                        <li>
+                            <img src="images/pharmacy.jpg" alt="熊貓美白霜" onerror="this.src='https://placehold.co/120x120?text=Panda+White'">
+                            <div>
+                                <strong>熊貓美白霜</strong><br>
+                                <small>可以白天擦還是要做好防曬，適合熬夜暗沈肌</small>
+                            </div>
+                        </li>
+                    </ul>
                 `
             },
             'return-flight': {
@@ -1002,7 +1074,7 @@
             document.getElementById('info-modal').classList.remove('show');
         }
 
-        // 🖼️ 圖片放大彈窗控制 (新增此 Function)
+        // 圖片放大彈窗控制 (新增此 Function)
         function openZoomModal(imageSrc) {
             const zoomModal = document.getElementById('zoom-modal');
             document.getElementById('zoom-img').src = imageSrc;
@@ -1027,7 +1099,7 @@
                 }
             });
 
-            // 🔍 監聽 Modal 內部的圖片點擊以放大 (新增此監聽器)
+            // 監聽 Modal 內部的圖片點擊以放大 (新增此監聽器)
             document.getElementById('modal-body').addEventListener('click', (e) => {
                 if (e.target.tagName === 'IMG') {
                     const imgSrc = e.target.getAttribute('src');
